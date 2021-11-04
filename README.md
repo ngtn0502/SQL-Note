@@ -84,6 +84,22 @@ Drop Database/```Table``` <Database/```Table``` Name>: To Drop
 
 We have to change the namespace of database where we want to create ```Table```, unless our ```Table``` will create some where not we want
 
+### Primary key & Indentity Column
+
+    Create Table tblPerson
+    (
+    PersonId int Identity(1,1) Primary Key,
+    Name nvarchar(20)
+    )
+
+
+<img src="./img/9.PNG" width="500">
+
+NOTE: If we delete all the row in table the indentity do not reset except we specify
+
+> DBCC CHECKIDENT(tblPerson, RESEED, 0)
+
+
 ### Foreign key and Primary key constraint
 
 We have to specifty this constraint to restrict foreign key in one ```Table``` is not match primary key in another ```Table``` => Establist the relationship between two ```Table```

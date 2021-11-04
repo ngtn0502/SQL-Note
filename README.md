@@ -57,6 +57,15 @@ SELECT databse();
 
 * Make sure you select right after delete or update
 
+## Namespace of a database
+
+```
+Use [name of Database]
+Go
+```
+
+=> It will do the query based on this Database, and change our environment to this namespace
+
 ## Creating and Altering Database/Table
 
 Creat Database/Table <Database/Table Name>: To Create
@@ -73,7 +82,44 @@ Drop Database/Table <Database/Table Name>: To Drop
 
 ## Table 
 
+We have to change the namespace of database where we want to create table, unless our table will create some where not we want
 
+### Foreign key and Primary key constrain
+
+We have to specifty this constrain to restrict foreign key in one table is not match primary key in another table => Establist the relationship between two table
+
+To add a foreign key reference using a query
+
+    Alter table tblPerson 
+    add constraint tblPerson_GenderId_FK FOREIGN KEY (GenderId) references tblGender(ID)
+
+
+The general formula is here
+
+    Alter table ForeignKeyTable add constraint ForeignKeyTable_ForiegnKeyColumn_FK 
+    FOREIGN KEY (ForiegnKeyColumn) references PrimaryKeyTable (PrimaryKeyColumn)
+
+### Default constrain - Default value for column
+
+Altering an existing column to add a default constraint:
+
+    ALTER TABLE { TABLE_NAME }
+    ADD CONSTRAINT { CONSTRAINT_NAME }
+    DEFAULT { DEFAULT_VALUE } FOR { EXISTING_COLUMN_NAME }
+
+
+Adding a new column, with default value, to an existing table:
+
+    ALTER TABLE { TABLE_NAME } 
+    ADD { COLUMN_NAME } { DATA_TYPE } { NULL | NOT NULL } 
+    CONSTRAINT { CONSTRAINT_NAME } DEFAULT { DEFAULT_VALUE }
+
+
+The following command will add a default constraint, DF_tblPerson_GenderId.
+
+    ALTER TABLE tblPerson
+    ADD CONSTRAINT DF_tblPerson_GenderId
+    DEFAULT 1 FOR GenderId
 
 # Datatype
 

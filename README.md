@@ -11,9 +11,10 @@ some little note by myself to remind what did i learn
 | No. | Content                                   |
 | --- | ----------------------------------------- |
 |     |                                           |
-| 1   | [Overview - Basic](#section-01-the-basic) |
+| 1   | [SQL, Database - Basic](#sql-database-basic) |
+| 1   | [Datatype](#sql-database-basic) |
 
-# Section 01 - THE BASIC
+# SQL, Database - Basic
 
 SQL is a language we use to talk to our database
 
@@ -37,3 +38,20 @@ SELECT databse();
 ```
 
 <img src="./img/1.png" width="500">
+
+---
+---
+
+```SQL CONVENTION```
+
+..* Uppercase in SQL is not a must
+=> It just because people want to separate sql syntax and variable
+
+..* Table name must be in plural
+
+..* Stored procedure should be start with sp not _sp because people want to seperate system procedure with our procedure
+
+..* String in SQL is case insensitive
+
+..* Make sure you select right after delete or update
+

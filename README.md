@@ -12,32 +12,33 @@ some little note by myself to remind what did i learn
 | --- | ----------------------------------------- |
 |     |                                           |
 | 1   | [Basic](#basic) |
-| 2   | [Datatype](#sql-database-basic) |
+| 2   | [Datatype](#sql-```Database```-basic) |
 | 3   | [String Function](#string-function) |
 | 4   | [Selection](#selection) |
 | 5   | [Where clause and Logical operator](#logical-perator) |
-| 5   | [Relationship and join](#Relationship-and-join) |
+| 6   | [Relationship and join](#Relationship-and-join) |
+| 7   | [Stored Procedure](#stored-procedure) |
 
-# SQL, Database - Basic
+# SQL, ```Database``` - Basic
 
-SQL is a language we use to talk to our database
+SQL is a language we use to talk to our ```Database```
 
-SQL Server is a database server, this store all of our data, table, stored procedure
+SQL Server is a ```Database``` server, this store all of our data, table, stored procedure
 
-MySQL, SSMS is a Database Management System - underthe hood we use SQL language to interact with database
+MySQL, SSMS is a ```Database``` Management System - underthe hood we use SQL language to interact with ```Database```
 
-```What is database?```
+```What is Database?```
 
-Database is a collection of data and Database is a method to accessing and manipulating our data
+```Database``` is a collection of data and ```Database``` is a method to accessing and manipulating our data
 
-=> When talk about Database we talk about DBMS and Database
+=> When talk about ```Database``` we talk about DBMS and ```Database```
 
-> Database is just a bunch of tables
+=> ```Database``` is just a bunch of tables
 
 ```
-CREATE DATABASE <name>;
-show databases;
-DROP DATABASE <name>;
+CREATE Database <name>;
+show Databases;
+DROP Database <name>;
 SELECT databse();
 ```
 
@@ -50,7 +51,7 @@ SELECT databse();
 
 * Table name must be in plural
 
-* Stored procedure should be start with sp not _sp because people want to seperate system procedure with our procedure
+* ```Stored procedure``` should be start with sp not _sp because people want to seperate system procedure with our procedure
 
 * String in SQL is case insensitive
 
@@ -62,45 +63,45 @@ Column (header) in table must be consisten type (SQL force you to do it) because
 
 1. Storing text
 
-* Char: fixed length - if it longer -> automatically reduce (it will auto fill if it not enough charactor
+    * Char: fixed length - if it longer -> automatically reduce (it will auto fill if it not enough charactor
 
-* Varchar: not fill automatically
+    * Varchar: not fill automatically
 
 2. Decimal number
 
-* Decimal: Decimal(n,d) -> very precis
+    * Decimal: Decimal(n,d) -> very precis
 
-* Float, Double: store gain number -> not percise
+    * Float, Double: store gain number -> not percise
 
-* => Better using Decimal
+    * => Better using Decimal
 
 3. Others
 
-* Date - CURDATE(): only date YYYY-MM-DD
+    * Date - CURDATE(): only date YYYY-MM-DD
 
-* Time - CURTIME(): only ti#me HH:MM:SS
+    * Time - CURTIME(): only ti#me HH:MM:SS
 
-* DateTime - NOW(): YYYY-MM-DD HH:MM:SS
+    * DateTime - NOW(): YYYY-MM-DD HH:MM:SS
 
 4. Formatting Date
 
-* DAY(DateTime) - get day
+    * DAY(DateTime) - get day
 
-* DAYNAME(DateTime) - get day name (mon, tues…)
+    * DAYNAME(DateTime) - get day name (mon, tues…)
 
-* DAYOFWEEK(DateTime)  - get number of day in week
+    * DAYOFWEEK(DateTime)  - get number of day in week
 
-* DAYOFYEAR(DateTime) - get number of day in year
+    * DAYOFYEAR(DateTime) - get number of day in year
 
 5. Date Math
 
-* DATEDIFF(NOW(), date)
+    * DATEDIFF(NOW(), date)
 
 6. TiMESTAMP
 
-* TimeStamp is a term refer to the time user insert some thing or the time of the row be created
+    * TimeStamp is a term refer to the time user insert some thing or the time of the row be created
 
-* It take up less space than DateTime
+    * It take up less space than DateTime
 
 # String function
 
@@ -126,16 +127,17 @@ Column (header) in table must be consisten type (SQL force you to do it) because
 # Logical Operator
 
 WHERE + LOGICAL OPERATOR
-* Equal: =
-* Not Equal: !=
-* Greater than: >
-* Smaller than: <
-* Between:  <column> BETWEEN … IN
-* Not between: <column> NOT BETWEEN … IN
-* IN: <column> IN (value1, value2,… valueN)
-* NOT IN: <column> NOT IN (value1, value2,… valueN)
-* CASE - WHEN - THEN - ELSE - END : Case staments
-* IFNULL: IFNULL(<checkedValue>, relacedValue)
+
+* ````Equal: ````=
+* ````Not Equal:```` !=
+* ````Greater than:```` >
+* ````Smaller than:```` <
+* ````Between: ```` <column> BETWEEN … IN
+* ````Not between:```` <column> NOT BETWEEN … IN
+* ````IN: ````<column> IN (value1, value2,… valueN)
+* ````NOT IN:```` <column> NOT IN (value1, value2,… valueN)
+* ````CASE - ````WHEN - THEN - ELSE - END : Case staments
+* ````IFNULL: ````IFNULL(<checkedValue>, relacedValue)
 
 => When use logical operator with datetime => It is best CAST(value AS DATETIME)  to convert to the same type
 
@@ -156,37 +158,37 @@ WHERE + LOGICAL OPERATOR
 
 Why we need a relationship between two table?
 
-> It make easier to work with single table for single purpose
+=> It make easier to work with single table for single purpose
 
-> It reduce null value in many column
+=> It reduce null value in many column
 
 <img src="./img/3.png" width="600">
 
-> Best idea to seperate to many table and make relationship between them
+=> Best idea to seperate to many table and make relationship between them
 
 ## PRIMARY KEY & FOREIGN KEY
 
 1. Primary key: is the unique ID of one table, it guarantee this record /this row to be unique
 	
-* The MS SQL Server uses the IDENTITY keyword to perform an auto-increment feature.
+    * The MS SQL Server uses the IDENTITY keyword to perform an auto-increment feature.
 		
-* In the example above, the starting value for IDENTITY is 1, and it will increment by 1 for each new record.
+    * In the example above, the starting value for IDENTITY is 1, and it will increment by 1 for each new record.
 
-* Tip: To specify that the "Personid" column should start at value 10 and increment by 5, change it to IDENTITY(10,5).
+    * Tip: To specify that the "Personid" column should start at value 10 and increment by 5, change it to IDENTITY(10,5).
 		
-- From <https://stackoverflow.com/questions/10991894/auto-increment-primary-key-in-sql-server-management-studio-2012> 
+    * From <https://stackoverflow.com/questions/10991894/auto-increment-primary-key-in-sql-server-management-studio-2012> 
 		
 2. Foreign key: is the key reference to other table. Foreign key not require to be unique
 	
-## Database schema
+## ```Database``` schema
 
-The database schema is its structure described in a formal language supported by the database management system (DBMS). The term "schema" refers to the organization of data as a blueprint of how the database is constructed (divided into database tables in the case of relational databases). 
+The ```Database``` schema is its structure described in a formal language supported by the ```Database``` management system (DBMS). The term "schema" refers to the organization of data as a blueprint of how the ```Database``` is constructed (divided into ```Database``` tables in the case of relational ```Database```s). 
 
-- From <https://en.wikipedia.org/wiki/Database_schema> 
+- From <https://en.wikipedia.org/wiki/```Database```_schema> 
 
-A database schema is an abstract design that represents the storage of your data in a database. It describes both the organization of data and the relationships between tables in a given database. Developers plan a database schema in advance so they know what components are necessary and how they will connect to each other.
+A ```Database``` schema is an abstract design that represents the storage of your data in a ```Database```. It describes both the organization of data and the relationships between tables in a given ```Database```. Developers plan a ```Database``` schema in advance so they know what components are necessary and how they will connect to each other.
 
-- From <https://www.educative.io/blog/what-are-database-schemas-examples> 
+- From <https://www.educative.io/blog/what-are-```Database```-schemas-examples> 
 
 ## ONE TO MANY
 
@@ -230,9 +232,9 @@ Config:
 
 - This is a way to store/wrap a query code, help you avoid to write the same query again and again.
 	
-- This stored procedure is already compiled and it will run the query logic inside stored procedure when we excecute this stored procedure.
+- This ```stored procedure``` is already compiled and it will run the query logic inside ```stored procedure``` when we excecute this ```stored procedure```.
 
-- Stored Procedure is stored in our database and it already excecuted
+- ```Stored Procedure``` is stored in our ```Database``` and it already excecuted
 
 - Benefit:
     - Security

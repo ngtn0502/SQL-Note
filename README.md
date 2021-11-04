@@ -84,9 +84,9 @@ Drop Database/```Table``` <Database/```Table``` Name>: To Drop
 
 We have to change the namespace of database where we want to create ```Table```, unless our ```Table``` will create some where not we want
 
-### Foreign key and Primary key constrain
+### Foreign key and Primary key constraint
 
-We have to specifty this constrain to restrict foreign key in one ```Table``` is not match primary key in another ```Table``` => Establist the relationship between two ```Table```
+We have to specifty this constraint to restrict foreign key in one ```Table``` is not match primary key in another ```Table``` => Establist the relationship between two ```Table```
 
 To add a foreign key reference using a query
 
@@ -99,27 +99,56 @@ The general formula is here
     Alter ```Table``` ForeignKey```Table``` add constraint ForeignKey```Table```_ForiegnKeyColumn_FK 
     FOREIGN KEY (ForiegnKeyColumn) references PrimaryKey```Table``` (PrimaryKeyColumn)
 
-### Default constrain - Default value for column
+### Default constraint - Default value for column
 
 Altering an existing column to add a default constraint:
 
-    ALTER ```Table``` { ```Table```_NAME }
+    ALTER Table { Table_NAME }
     ADD CONSTRAINT { CONSTRAINT_NAME }
     DEFAULT { DEFAULT_VALUE } FOR { EXISTING_COLUMN_NAME }
 
 
 Adding a new column, with default value, to an existing ```Table```:
 
-    ALTER ```Table``` { ```Table```_NAME } 
+    ALTER Table { Table_NAME } 
     ADD { COLUMN_NAME } { DATA_TYPE } { NULL | NOT NULL } 
     CONSTRAINT { CONSTRAINT_NAME } DEFAULT { DEFAULT_VALUE }
 
 
 The following command will add a default constraint, DF_tblPerson_GenderId.
 
-    ALTER ```Table``` tblPerson
+    ALTER Table tblPerson
     ADD CONSTRAINT DF_tblPerson_GenderId
     DEFAULT 1 FOR GenderId
+
+<img src="./img/8.PNG" width="500">
+
+[Cascading referential integrity constraint](https://www.youtube.com/watch?v=ETepOVi7Xk8&list=PL08903FB7ACA1C2FB&index=6)
+
+### Check Constraint
+
+To check a columns before it was insert into our database
+
+The following check constraint, limits the age between ZERO and 150.
+
+    ALTER TABLE tblPerson
+    ADD CONSTRAINT CK_tblPerson_Age CHECK (Age > 0 AND Age < 150)
+
+
+The general formula for adding check constraint in SQL Server:
+
+    ALTER TABLE { TABLE_NAME }
+    ADD CONSTRAINT { CONSTRAINT_NAME } CHECK ( BOOLEAN_EXPRESSION )
+
+* ```CK_```: is a convention to prefix of constraint
+
+If the BOOLEAN_EXPRESSION returns true, then the CHECK constraint allows the value, otherwise it doesn't. Since, AGE is a nullable column, it's possible to pass null for this column, when inserting a row. When you pass NULL for the AGE column, the boolean expression evaluates to UNKNOWN, and allows the value.
+
+
+To drop the CHECK constraint:
+
+    ALTER TABLE tblPerson
+    DROP CONSTRAINT CK_tblPerson_Age
 
 # Datatype
 

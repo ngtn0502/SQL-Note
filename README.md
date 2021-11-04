@@ -51,11 +51,29 @@ SELECT databse();
 
 * Table name must be in plural
 
-* ```Stored procedure``` should be start with sp not _sp because people want to seperate system procedure with our procedure
+* ```Stored procedure``` should be start with sp not _sp because people want to seperate system procedure with our user defined procedure
 
 * String in SQL is case insensitive
 
 * Make sure you select right after delete or update
+
+## Creating and Altering Database/Table
+
+Creat Database/Table <Database/Table Name>: To Create
+
+Alter Database/Table <Database/Table Name>: To Modify
+
+Drop Database/Table <Database/Table Name>: To Drop
+
+> It is important to note that we cant delete/drop databse is currently in use, because other developer is quering to this database. It will throw to us an error
+
+> If we really want to drop a database we must set Database to single user with rollback immediate -> It mean disconnect the database with other user and only accessalbe with one user only
+
+<img src="./img/7.PNG" width="500">
+
+## Table 
+
+
 
 # Datatype
 
@@ -166,7 +184,7 @@ Why we need a relationship between two table?
 
 => Best idea to seperate to many table and make relationship between them
 
-## PRIMARY KEY & FOREIGN KEY
+## Primary key and Foreign Key
 
 1. Primary key: is the unique ID of one table, it guarantee this record /this row to be unique
 	
@@ -190,7 +208,7 @@ A ```Database``` schema is an abstract design that represents the storage of you
 
 - From <https://www.educative.io/blog/what-are-```Database```-schemas-examples> 
 
-## ONE TO MANY
+## One to many
 
 Config: 
 
@@ -211,7 +229,7 @@ Config:
 
 <img src="./img/4.png" width="600">
 
-## INNER JOIN
+## Inner Join
 
 
 => Join two table and take record from that table where condition is met
@@ -220,7 +238,7 @@ Config:
 
 <img src="./img/5.png" width="600">
 
-## LEFT JOIN 
+## Left Join 
 
 => Take right table and join with the left table where the condition is met
 

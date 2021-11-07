@@ -18,6 +18,10 @@ some little note by myself to remind what did i learn
 | 5   | [Where clause and Logical operator](#logical-perator) |
 | 6   | [Relationship and join](#Relationship-and-join) |
 | 7   | [Stored Procedure](#stored-procedure) |
+| 8   | [Trigger](#trigger) |
+| 9   | [Key constraint](#key-constraint) |
+| 10   | [Group by](#group-by) |
+| 11   | [Join](#join) |
 
 # SQL, Database - Basic
 
@@ -233,6 +237,31 @@ Column (header) in ```Table``` must be consisten type (```SQL``` force you to do
     - SELECT * FROM books ORDER BY stock_quantity DESC OFFSET 0 ```row```S FETCH NEXT 10 ```row```S ONLY;
 * LIKE - better searching data
 
+## Wild Cards
+
+-  % : specify zero or more characters
+
+- - : specify exacly one character
+
+- [] : any characters with in the brackets
+
+- [^]: not any character with in the bracket
+
+## Select top n or top n percentage of rows
+
+We will use ```select top(n)``` combine with ```order by clause```
+
+    SELECT TOP 50 PERCENT * FROM tblPerson ORDER BY age DESC
+
+## Distinct row
+
+To Select distinct rows use DISTINCT keyword
+
+    SELECT DISTINCT Column_List
+    FROM Table_Name
+
+##
+
 # Logical Operator
 
 WHERE + LOGICAL OPERATOR
@@ -353,3 +382,90 @@ Config:
 
 => Mean we specify we dont want to count how many ```row``` is effected
 
+# Trigger
+
+Trigger is an action that will be triggered when specify action is used
+
+
+# Key constraint
+
+## Primary key constraint
+
+This is a way to make sure primary key in the table is unique
+
+## Unique key constraint
+
+This is another way to make sure other columns do not have duplicate value
+
+Both primary key and unique key are used to enforce, the uniqueness of a column. So, when do you choose one over the other?
+
+    A table can have, only one primary key. If you want to enforce uniqueness on 2 or more columns, then we use unique key constraint.
+
+What is the difference between Primary key constraint and Unique key constraint? This question is asked very frequently in interviews.
+
+1. A table can have only one primary key, but more than one unique key
+
+2. Primary key does not allow nulls, where as unique key allows one null
+
+To create the unique key using a query:
+
+    Alter Table Table_Name
+    Add Constraint Constraint_Name Unique(Column_Name)
+
+To drop the constraint
+
+    1. Right click the constraint and delete.
+    Or
+    2. Using a query
+    Alter Table tblPerson
+    Drop COnstraint UQ_tblPerson_Email
+
+# Group by
+
+```Group by``` clause is used to group a selected set of rows into a set of summary rows by the values of one or more columns or expressions. It is always used in conjunction with one or more ```aggregate functions```.
+
+## Filtering Groups
+
+WHERE clause is used to filter rows before aggregation, where as HAVING clause is used to filter groups after aggregations. The following 2 queries produce the same result.
+
+Filtering rows using WHERE clause, before aggrgations take place:
+
+    Select City, SUM(Salary) as TotalSalary
+    from tblEmployee
+    Where City = 'London'
+    group by City
+
+Filtering groups using HAVING clause, after all aggrgations take place:
+
+    Select City, SUM(Salary) as TotalSalary
+    from tblEmployee
+    group by City
+    Having City = 'London'
+
+Difference between WHERE and HAVING clause:
+
+    1. WHERE clause can be used with - Select, Insert, and Update statements, where as HAVING clause can only be used with the Select statement.
+    2. WHERE filters rows before aggregation (GROUPING), where as, HAVING filters groups, after the aggregations are performed.
+    3. Aggregate functions cannot be used in the WHERE clause, unless it is in a sub query contained in a HAVING clause, whereas, aggregate functions can be used in Having clause.
+
+# Join
+
+General Formula for Joins
+
+    SELECT      ColumnList
+    FROM           LeftTableName
+    JOIN_TYPE  RightTableName
+    ON                 JoinCondition
+
+    SELECT Name, Gender, Salary, DepartmentName
+    FROM tblEmployee
+    INNER JOIN tblDepartment
+    ON tblEmployee.DepartmentId = tblDepartment.Id
+
+
+<img src="./img/10.PNG" width="600">
+
+
+## Advanced join
+
+<img src="./img/11.PNG" width="600">

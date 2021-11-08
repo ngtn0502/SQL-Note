@@ -17,11 +17,12 @@ some little note by myself to remind what did i learn
 | 4   | [Selection](#selection) |
 | 5   | [Where clause and Logical operator](#logical-perator) |
 | 6   | [Relationship and join](#Relationship-and-join) |
-| 7   | [Stored Procedure](#stored-procedure) |
 | 8   | [Trigger](#trigger) |
 | 9   | [Key constraint](#key-constraint) |
 | 10   | [Group by](#group-by) |
 | 11   | [Join](#join) |
+| 12   | [Replace Null](#replace-null) |
+| 13   | [Stored Procedure](#stored-procedure) |
 
 # SQL, Database - Basic
 
@@ -366,21 +367,10 @@ Config:
 
 <img src="./img/6.png" width="600">
 
-# Stored Procedure
+---
 
-- This is a way to store/wrap a query code, help you avoid to write the same query again and again.
-	
-- This ```stored procedure``` is already compiled and it will run the query logic inside ```stored procedure``` when we excecute this ```stored procedure```.
+---
 
-- ```Stored Procedure``` is stored in our ```Database``` and it already excecuted
-
-- Benefit:
-    - Security
-    - Network traffic
-
-> on nocount 
-
-=> Mean we specify we dont want to count how many ```row``` is effected
 
 # Trigger
 
@@ -469,3 +459,101 @@ General Formula for Joins
 ## Advanced join
 
 <img src="./img/11.PNG" width="600">
+
+
+# Replace null
+
+Replacing NULL value using ISNULL() function: We are passing 2 parameters to IsNULL() function. If M.Name returns NULL, then 'No Manager' string is used as the replacement value.
+
+    SELECT E.Name as Employee, ISNULL(M.Name,'No Manager') as Manager
+    FROM tblEmployee E
+    LEFT JOIN tblEmployee M
+    ON E.ManagerID = M.EmployeeID
+
+Replacing NULL value using CASE Statement:
+
+    SELECT E.Name as Employee, CASE WHEN M.Name IS NULL THEN 'No Manager' 
+    ELSE M.Name END as Manager
+    FROM  tblEmployee E
+    LEFT JOIN tblEmployee M
+    ON   E.ManagerID = M.EmployeeID
+
+Replacing NULL value using COALESCE() function: 
+COALESCE() function, returns the first NON NULL value.
+
+    SELECT E.Name as Employee, COALESCE(M.Name, 'No Manager') as Manager
+    FROM tblEmployee E
+    LEFT JOIN tblEmployee M
+    ON E.ManagerID = M.EmployeeID
+
+
+# Stored Procedure
+
+A stored procedure is group of T-SQL (Transact SQL) statements. If you have a situation, where you write the same query over and over again, you can save that specific query as a stored procedure and call it just by it's name.
+
+=> It help to avoid writing query over and over again
+	
+- This ```stored procedure``` is already compiled and it will run the query logic inside ```stored procedure``` when we excecute this ```stored procedure```.
+
+- ```Stored Procedure``` is stored in our ```Database``` and it already excecuted
+
+- Benefit:
+    - Security
+    - Network traffic
+
+> on nocount 
+
+=> Mean we specify we dont want to count how many ```row``` is effected
+
+Creating a simple stored procedure without any parameters: This stored procedure, retrieves Name and Gender of all the employees. To create a stored procedure we use, CREATE PROCEDURE or CREATE PROC statement.
+
+    Create Procedure spGetEmployees
+    as
+    Begin
+    Select Name, Gender from tblEmployee
+    End
+
+
+To execute the stored procedure, you can just type the procedure name and press F5, or use EXEC or EXECUTE keywords followed by the procedure name as shown below.
+
+    1. spGetEmployees
+    2. EXEC spGetEmployees
+    3. Execute spGetEmployees
+
+Note: You can also right click on the procedure name, in object explorer in SQL Server Management Studio and select EXECUTE STORED PROCEDURE.
+
+Creating a stored procedure with input parameters: This SP, accepts GENDER and DEPARTMENTID parameters. Parameters and variables have an @ prefix in their name.
+
+    Create Procedure spGetEmployeesByGenderAndDepartment 
+    @Gender nvarchar(50),
+    @DepartmentId int
+    as
+    Begin
+        Select Name, Gender from tblEmployee Where Gender = @Gender and DepartmentId = @DepartmentId
+    End
+
+To invoke this procedure, we need to pass the value for @Gender and @DepartmentId parameters. If you don't specify the name of the parameters, you have to first pass value for @Gender parameter and then for @DepartmentId.
+EXECUTE spGetEmployeesByGenderAndDepartment 'Male', 1
+
+On the other hand, if you change the order, you will get an error stating "Error converting data type varchar to int." This is because, the value of "Male" is passed into @DepartmentId parameter. Since @DepartmentId is an integer, we get the type conversion error.
+spGetEmployeesByGenderAndDepartment 1, 'Male'
+
+When you specify the names of the parameters when executing the stored procedure the order doesn't matter.
+
+    EXECUTE spGetEmployeesByGenderAndDepartment @DepartmentId=1, @Gender = 'Male'
+
+To change the stored procedure, use ALTER PROCEDURE statement:
+
+    Alter Procedure spGetEmployeesByGenderAndDepartment 
+    @Gender nvarchar(50),
+    @DepartmentId int
+    as
+    Begin
+        Select Name, Gender from tblEmployee Where Gender = @Gender and DepartmentId = @DepartmentId order by Name
+    End
+
+## Stored procedure with output parameter
+
+<img src="./img/12.PNG" width="600">
+
+<img src="./img/13.PNG" width="600">
